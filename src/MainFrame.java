@@ -69,7 +69,7 @@ public class MainFrame extends JFrame{
     private JMenuItem jmiload = new JMenuItem("Load");
     private JMenuItem jminew = new JMenuItem("New");
     private JMenuItem jmiclose = new JMenuItem("Close");
-    private JFileChooser jfc;
+    private JFileChooser jfc = new JFileChooser();
     private JTextArea jta = new JTextArea();
     private JScrollPane jsp = new JScrollPane(jta);
 
@@ -92,19 +92,21 @@ public class MainFrame extends JFrame{
         this.setJMenuBar(jmb);
         this.setContentPane(jdp);
         jif.setBounds(0,0,200,80);
+
+        //----------------主視窗上排按鍵
         jmb.add(jmF);
         jmb.add(jmS);
         jmb.add(jmG);
         jmb.add(jmA);
-        jmF.add(jmiExit);
         jmF.add(jmiBook);
+        jmF.add(jmiExit);
         jmG.add(jmiGame);
         jmG.add(jminum);
 
         jmiExit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                dispose();
+                System.exit(0);
                 loginframe.reset();
                 loginframe.setVisible(true);
             }
@@ -145,7 +147,7 @@ public class MainFrame extends JFrame{
             }
         });
 
-
+        //------------------------------------樂透
         jifnum.setBounds(0,0,300,400);
         jifcp = jif.getContentPane();
         jifcp.add(jpl, BorderLayout.CENTER);
@@ -173,7 +175,7 @@ public class MainFrame extends JFrame{
             }
         });
 
-
+        //------------------------------------鍵盤
         jifnumcp = jifnum.getContentPane();
         jifnumcp.setLayout(new BorderLayout(5,5));
         jifnumcp.add(jtf, BorderLayout.NORTH);
@@ -218,6 +220,7 @@ public class MainFrame extends JFrame{
             }
         });
 
+        //-----------------------------------更改使用者視窗
         jmS.add(jmifont);
         jpl2.add(jlbfamily);
         jpl2.add(jlbstyle);
@@ -247,17 +250,17 @@ public class MainFrame extends JFrame{
             }
         });
 
-
+        //--------------------------------------------檔案讀取器
         jifreacp = jifrea.getContentPane();
         jifreacp.setLayout(new BorderLayout(5,5));
         jifreacp.add(jsp, BorderLayout.CENTER);
-        jifrea.setBounds(0,0,500,500);
+        jifrea.setJMenuBar(jifjmb);
+        jifrea.setBounds(0,0,400,350);
         jifrea.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         jifjmb.add(jmudata);
         jmudata.add(jmiload);
         jmudata.add(jminew);
         jmudata.add(jmiclose);
-        jdp.add(jifrea);
 
         jmiload.addActionListener(new ActionListener() {
             @Override
@@ -279,8 +282,17 @@ public class MainFrame extends JFrame{
             }
         });
 
+        jmiclose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jifrea.dispose();
+            }
+        });
+
 
     }
+
+    //------------------------------樂透亂數
     private void lotoGenerate(){
         int i=0;
         while (i<6){
